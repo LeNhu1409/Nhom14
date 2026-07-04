@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Ghi log đầu vào để debug
-    error_log("Đăng nhập: Username = $username, Password = $password");
+    //error_log("Đăng nhập: Username = $username, Password = $password");
 
     // Lấy thông tin admin từ cơ sở dữ liệu
     try {
@@ -17,14 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Ghi log dữ liệu admin
-        error_log("Admin: " . print_r($admin, true));
+        //error_log("Admin: " . print_r($admin, true));
 
         if ($admin && password_verify($password, $admin['password'])) {
             // Thiết lập session
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['admin_username'] = $admin['username'];
             // Ghi log session
-            error_log("Session thiết lập: " . print_r($_SESSION, true));
+            //error_log("Session thiết lập: " . print_r($_SESSION, true));
             header('Location: admin_dashboard.php');
             exit;
         } else {

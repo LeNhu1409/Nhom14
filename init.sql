@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(255) NOT NULL, -- Tên sản phẩm (iPhone 15, MacBook Air)
     slug VARCHAR(255) NOT NULL UNIQUE, -- Đường dẫn thân thiện (iphone-15, macbook-air)
     description TEXT, -- Mô tả sản phẩm
+    specifications TEXT, -- Cấu hình sản phẩm (mỗi dòng dạng key:value)
     price DECIMAL(10, 2) NOT NULL, -- Giá sản phẩm
     image VARCHAR(255), -- Đường dẫn ảnh sản phẩm
     is_old BOOLEAN DEFAULT FALSE, -- Trạng thái hàng cũ (TRUE nếu là hàng cũ)
@@ -222,7 +223,9 @@ INSERT IGNORE INTO promotions (category_id, title, slug, description, discount_p
 (14, 'Giảm giá Samsung S24', 'giam-gia-samsung-s24', 'Giảm 15% cho Galaxy S24', 15.00, '2026-06-15', '2026-07-15'),
 (14, 'Ưu đãi Watch Series 9', 'uu-dai-watch-series-9', 'Giảm 20% cho Apple Watch Series 9', 20.00, '2026-06-15', '2026-07-15'),
 (14, 'Khuyến mãi iPad Pro', 'khuyen-mai-ipad-pro', 'Giảm 10% cho iPad Pro', 10.00, '2026-06-15', '2026-07-15'),
-(14, 'Mua 2 tặng 1 Phụ kiện', 'mua-2-tang-1-phu-kien', 'Mua 2 phụ kiện tặng 1', 0.00, '2026-06-15', '2026-07-15'),
+(14, 'Mua 2 tặng 1 Phụ kiện', 'mua-2-tang-1-phu-kien', 'Mua 2 phụ kiện tặng 1', 0.00, '2026-06-15', '2026-07-15');
+
+INSERT IGNORE INTO news (category_id, title, slug, content, image) VALUES
 (15, 'iPhone 17 ra mắt', 'iphone-17-ra-mat', 'Apple vừa giới thiệu iPhone 17 với nhiều cải tiến vượt bậc.', 'images/news-iphone17.jpg'),
 (15, 'iOS 19 chính thức', 'ios-19-chinh-thuc', 'iOS 19 mang lại nhiều tính năng mới cho người dùng.', 'images/news-ios19.jpg'),
 (15, 'MacBook M4 lộ diện', 'macbook-m4-lo-dien', 'MacBook M4 dự kiến sẽ ra mắt vào cuối năm 2026.', 'images/news-macbookm4.jpg');
@@ -250,6 +253,110 @@ INSERT IGNORE INTO hot_products (name, image_url, price, old_price, discount_per
 ('iPad Mini 6 64GB WiFi', 'img_sp/ipad-mini-6-wifi-starlight.jpg', 10990000, 13990000, 21, 'Giảm 500K khi mua kèm phụ kiện', 5, 'A15 Bionic, 4GB RAM, 64GB Storage, 8.3" Liquid Retina Display'),
 ('iPad Gen 9 10.2-inch 128GB', 'img_sp/iPad-9-5G-den.jpg', 23490000, 26990000, 13, 'Giảm giá sốc - có hàng giao ngay', 5, 'A13 Bionic, 3GB RAM, 128GB Storage, 10.2" Retina Display');
 
+-- ============================================
+-- Cập nhật cấu hình cho từng sản phẩm (specifications)
+-- ============================================
+
+-- ===== iPhone =====
+UPDATE products SET specifications = 'Chip: A18 Pro\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.9" Super Retina XDR\nCamera sau: 48MP + 48MP + 12MP\nPin: 4685 mAh' WHERE slug = 'iphone-16-pro-max';
+UPDATE products SET specifications = 'Chip: A17 Pro\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.7" Super Retina XDR\nCamera sau: 48MP + 12MP + 12MP\nPin: 4422 mAh' WHERE slug = 'iphone-15-pro-max';
+UPDATE products SET specifications = 'Chip: A18\nRAM: 6GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 48MP\nPin: 3961 mAh' WHERE slug = 'iphone-16-e';
+UPDATE products SET specifications = 'Chip: A16 Bionic\nRAM: 6GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 48MP + 12MP\nPin: 3349 mAh' WHERE slug = 'iphone-15';
+UPDATE products SET specifications = 'Chip: A16 Bionic\nRAM: 6GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 48MP + 12MP\nPin: 3200 mAh' WHERE slug = 'iphone-14-pro';
+UPDATE products SET specifications = 'Chip: A15 Bionic\nRAM: 6GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 12MP + 12MP\nPin: 3279 mAh' WHERE slug = 'iphone-14';
+UPDATE products SET specifications = 'Chip: A15 Bionic\nRAM: 4GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 12MP + 12MP\nPin: 3227 mAh' WHERE slug = 'iphone-13';
+UPDATE products SET specifications = 'Chip: A14 Bionic\nRAM: 4GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Super Retina XDR\nCamera sau: 12MP + 12MP\nPin: 2815 mAh' WHERE slug = 'iphone-12';
+UPDATE products SET specifications = 'Chip: A13 Bionic\nRAM: 4GB\nBộ nhớ: 128GB\nMàn hình: 6.1" Liquid Retina\nCamera sau: 12MP + 12MP\nPin: 3110 mAh' WHERE slug = 'iphone-11';
+UPDATE products SET specifications = 'Chip: A12 Bionic\nRAM: 3GB\nBộ nhớ: 64GB\nMàn hình: 6.1" Liquid Retina\nCamera sau: 12MP\nPin: 2942 mAh' WHERE slug = 'iphone-xr';
+UPDATE products SET specifications = 'Chip: A12 Bionic\nRAM: 4GB\nBộ nhớ: 64GB\nMàn hình: 6.5" Super Retina\nCamera sau: 12MP + 12MP\nPin: 3174 mAh' WHERE slug = 'iphone-xs-max';
+UPDATE products SET specifications = 'Chip: A12 Bionic\nRAM: 4GB\nBộ nhớ: 64GB\nMàn hình: 5.8" Super Retina\nCamera sau: 12MP + 12MP\nPin: 2658 mAh' WHERE slug = 'iphone-xs';
+
+-- ===== iPad =====
+UPDATE products SET specifications = 'Chip: Apple M4\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 12.9" Tandem OLED\nKết nối: WiFi 6E' WHERE slug = 'ipad-pro-12-9';
+UPDATE products SET specifications = 'Chip: Apple M2\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 11" Liquid Retina\nKết nối: WiFi + Cellular' WHERE slug = 'ipad-pro-11';
+UPDATE products SET specifications = 'Chip: Apple M1\nRAM: 8GB\nBộ nhớ: 128GB\nMàn hình: 10.9" Liquid Retina\nKết nối: WiFi' WHERE slug = 'ipad-air';
+UPDATE products SET specifications = 'Chip: A14 Bionic\nRAM: 4GB\nBộ nhớ: 64GB\nMàn hình: 10.9" Liquid Retina\nKết nối: WiFi' WHERE slug = 'ipad-10th-gen';
+UPDATE products SET specifications = 'Chip: A13 Bionic\nRAM: 3GB\nBộ nhớ: 64GB\nMàn hình: 10.2" Retina\nKết nối: WiFi' WHERE slug = 'ipad-9th-gen';
+UPDATE products SET specifications = 'Chip: A15 Bionic\nRAM: 4GB\nBộ nhớ: 64GB\nMàn hình: 8.3" Liquid Retina\nKết nối: WiFi' WHERE slug = 'ipad-mini';
+UPDATE products SET specifications = 'Chip: Apple M4\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 11" Ultra Retina XDR\nKết nối: WiFi 6E' WHERE slug = 'ipad-pro-m4';
+
+-- ===== Watch =====
+UPDATE products SET specifications = 'Vi xử lý: S9 SiP\nMàn hình: 49mm LTPO OLED\nPin: 36 giờ\nKết nối: GPS + Cellular\nChống nước: 100m' WHERE slug = 'apple-watch-ultra-2';
+UPDATE products SET specifications = 'Vi xử lý: S9 SiP\nMàn hình: 41mm LTPO OLED\nPin: 18 giờ\nKết nối: GPS\nChống nước: 50m' WHERE slug = 'apple-watch-series-9';
+UPDATE products SET specifications = 'Vi xử lý: S8 SiP\nMàn hình: 45mm LTPO OLED\nPin: 18 giờ\nKết nối: GPS\nChống nước: 50m' WHERE slug = 'apple-watch-series-8';
+UPDATE products SET specifications = 'Vi xử lý: S8 SiP\nMàn hình: 44mm OLED\nPin: 18 giờ\nKết nối: GPS\nChống nước: 50m' WHERE slug = 'apple-watch-se-2023';
+UPDATE products SET specifications = 'Vi xử lý: S8 SiP\nMàn hình: 40mm OLED\nPin: 18 giờ\nKết nối: GPS\nChống nước: 50m' WHERE slug = 'apple-watch-se-2022';
+UPDATE products SET specifications = 'Vi xử lý: S7 SiP\nMàn hình: 45mm LTPO OLED\nPin: 18 giờ\nKết nối: GPS\nChống nước: 50m' WHERE slug = 'apple-watch-series-7';
+
+-- ===== AirPods =====
+UPDATE products SET specifications = 'Chip: H2\nChống ồn chủ động: Có\nPin: 6 giờ (nghe nhạc)\nChống nước: IPX4' WHERE slug = 'airpods-pro-2';
+UPDATE products SET specifications = 'Chip: H1\nChống ồn chủ động: Không\nPin: 6 giờ (nghe nhạc)\nChống nước: IPX4' WHERE slug = 'airpods-3rd-gen';
+UPDATE products SET specifications = 'Chip: H1\nChống ồn chủ động: Không\nPin: 5 giờ (nghe nhạc)\nChống nước: Không' WHERE slug = 'airpods-2nd-gen';
+UPDATE products SET specifications = 'Chip: H2\nChống ồn chủ động: Có\nPin: 5 giờ (nghe nhạc)\nChống nước: IP54' WHERE slug = 'airpods-4th-gen';
+
+-- ===== Mac =====
+UPDATE products SET specifications = 'Chip: Apple M2 Pro\nRAM: 16GB\nỔ cứng: 512GB SSD\nMàn hình: 14.2" Liquid Retina XDR' WHERE slug = 'macbook-pro-14-m2';
+UPDATE products SET specifications = 'Chip: Apple M2 Pro\nRAM: 16GB\nỔ cứng: 1TB SSD\nMàn hình: 16.2" Liquid Retina XDR' WHERE slug = 'macbook-pro-16-m2';
+UPDATE products SET specifications = 'Chip: Apple M2\nRAM: 8GB\nỔ cứng: 256GB SSD\nMàn hình: 13.6" Liquid Retina' WHERE slug = 'macbook-air-m2';
+UPDATE products SET specifications = 'Chip: Apple M1\nRAM: 8GB\nỔ cứng: 256GB SSD\nMàn hình: 13.3" Retina' WHERE slug = 'macbook-air-m1';
+UPDATE products SET specifications = 'Chip: Apple M1\nRAM: 8GB\nỔ cứng: 256GB SSD\nMàn hình: 24" 4.5K Retina' WHERE slug = 'imac-24-m1';
+UPDATE products SET specifications = 'Chip: Apple M2\nRAM: 8GB\nỔ cứng: 256GB SSD\nCổng: Thunderbolt 4, USB-C' WHERE slug = 'mac-mini-m2';
+
+-- ===== Laptop =====
+UPDATE products SET specifications = 'CPU: Intel Core i5-1240P\nRAM: 16GB\nỔ cứng: 512GB SSD\nMàn hình: 13.4" FHD+' WHERE slug = 'dell-xps-13';
+UPDATE products SET specifications = 'CPU: Intel Core i7-1255U\nRAM: 16GB\nỔ cứng: 512GB SSD\nMàn hình: 13.5" OLED' WHERE slug = 'hp-spectre-x360';
+UPDATE products SET specifications = 'CPU: Intel Core i7-1270P\nRAM: 16GB\nỔ cứng: 512GB SSD\nMàn hình: 14" WUXGA' WHERE slug = 'lenovo-thinkpad-x1-carbon';
+UPDATE products SET specifications = 'CPU: Intel Core i5-1240P\nRAM: 16GB\nỔ cứng: 512GB SSD\nMàn hình: 14" OLED' WHERE slug = 'asus-zenbook-14';
+UPDATE products SET specifications = 'CPU: Intel Core i5-1240P\nRAM: 8GB\nỔ cứng: 512GB SSD\nMàn hình: 14" FHD' WHERE slug = 'acer-swift-3';
+UPDATE products SET specifications = 'CPU: Intel Core Ultra 7\nRAM: 16GB\nỔ cứng: 1TB SSD\nMàn hình: 14" 2.8K OLED' WHERE slug = 'msi-prestige-14';
+
+-- ===== Điện thoại =====
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 3\nRAM: 12GB\nBộ nhớ: 256GB\nMàn hình: 6.36" AMOLED\nPin: 4610 mAh' WHERE slug = 'xiaomi-14';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 16GB\nBộ nhớ: 256GB\nMàn hình: 6.82" AMOLED\nPin: 5000 mAh' WHERE slug = 'oppo-find-x6-pro';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 12GB\nBộ nhớ: 256GB\nMàn hình: 6.78" AMOLED\nPin: 4870 mAh' WHERE slug = 'vivo-x90-pro';
+UPDATE products SET specifications = 'Chip: Snapdragon 8+ Gen 1\nRAM: 12GB\nBộ nhớ: 256GB\nMàn hình: 6.74" AMOLED\nPin: 4600 mAh' WHERE slug = 'realme-gt-3';
+UPDATE products SET specifications = 'Chip: Snapdragon 695\nRAM: 6GB\nBộ nhớ: 128GB\nMàn hình: 6.67" AMOLED\nPin: 4200 mAh' WHERE slug = 'nokia-x30';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 16GB\nBộ nhớ: 256GB\nMàn hình: 6.7" AMOLED\nPin: 5000 mAh' WHERE slug = 'oneplus-11';
+
+-- ===== Samsung =====
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 3\nRAM: 12GB\nBộ nhớ: 256GB\nMàn hình: 6.8" Dynamic AMOLED 2X\nPin: 5000 mAh' WHERE slug = 'samsung-galaxy-s24-ultra';
+UPDATE products SET specifications = 'Chip: Exynos 2400\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.2" Dynamic AMOLED 2X\nPin: 4000 mAh' WHERE slug = 'samsung-galaxy-s24';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 12GB\nBộ nhớ: 512GB\nMàn hình: 7.6" Foldable Dynamic AMOLED\nPin: 4400 mAh' WHERE slug = 'samsung-galaxy-z-fold-5';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.7" Foldable Dynamic AMOLED\nPin: 3700 mAh' WHERE slug = 'samsung-galaxy-z-flip-5';
+UPDATE products SET specifications = 'Chip: Exynos 1380\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.4" Super AMOLED\nPin: 5000 mAh' WHERE slug = 'samsung-galaxy-a54';
+UPDATE products SET specifications = 'Chip: Snapdragon 8 Gen 2\nRAM: 8GB\nBộ nhớ: 256GB\nMàn hình: 6.1" Dynamic AMOLED 2X\nPin: 3900 mAh' WHERE slug = 'samsung-galaxy-s23';
+
+-- ===== Âm thanh =====
+UPDATE products SET specifications = 'Chống ồn chủ động: Có\nPin: 30 giờ\nKết nối: Bluetooth 5.2\nMic đàm thoại: 4 mic' WHERE slug = 'sony-wh-1000xm5';
+UPDATE products SET specifications = 'Chống ồn chủ động: Có\nPin: 24 giờ\nKết nối: Bluetooth 5.1\nMic đàm thoại: 6 mic' WHERE slug = 'bose-quietcomfort-45';
+UPDATE products SET specifications = 'Công suất: 30W\nPin: 12 giờ\nChống nước: IP67\nKết nối: Bluetooth 5.1' WHERE slug = 'jbl-flip-6';
+UPDATE products SET specifications = 'Chống ồn chủ động: Có\nPin: 8 giờ (tai nghe) + 24 giờ (hộp sạc)\nChống nước: IPX4\nKết nối: Bluetooth 5.2' WHERE slug = 'sony-wf-1000xm4';
+UPDATE products SET specifications = 'Công suất: 60W\nPin: 8 giờ\nChống nước: IPX7\nKết nối: Bluetooth 5.0' WHERE slug = 'harman-kardon-onyx-studio-7';
+UPDATE products SET specifications = 'Chống ồn chủ động: Có\nPin: 17 giờ\nKết nối: Bluetooth 5.0\nMic đàm thoại: 4 mic' WHERE slug = 'sennheiser-momentum-3';
+
+-- ===== Phụ kiện =====
+UPDATE products SET specifications = 'Chuẩn: USB-C to USB-C\nCông suất: 100W\nChiều dài: 1.2m' WHERE slug = 'cap-sac-usb-c-anker';
+UPDATE products SET specifications = 'Chất liệu: Nhựa cứng viền dẻo\nTương thích: iPhone 15 Pro Max\nChống sốc: Có' WHERE slug = 'op-lung-iphone-15-spigen';
+UPDATE products SET specifications = 'Dung lượng: 10000mAh\nCông suất sạc: 22.5W\nCổng: USB-C, USB-A' WHERE slug = 'pin-du-phong-10000mah-xiaomi';
+UPDATE products SET specifications = 'Độ cứng: 9H\nĐộ trong suốt: 99.9%\nTương thích: iPhone 15 Pro Max' WHERE slug = 'kinh-cuong-luc-iphone-15';
+UPDATE products SET specifications = 'Kết nối: Bluetooth/USB Receiver\nPin: 70 ngày\nSố nút: 7 nút tùy chỉnh' WHERE slug = 'chuot-logitech-mx-master-3';
+UPDATE products SET specifications = 'Switch: Gateron Blue/Brown\nKết nối: Bluetooth + Wired\nLayout: 87 phím (TKL)' WHERE slug = 'ban-phim-co-keychron-k8';
+
+-- ===== Gia dụng & Đời sống =====
+UPDATE products SET specifications = 'Diện tích lọc: 48m²\nCDM: 320 m³/h\nBộ lọc: HEPA H13' WHERE slug = 'may-loc-khong-khi-xiaomi';
+UPDATE products SET specifications = 'Công suất: 65W\nDung tích bình nước: 4L\nChế độ: 3 tốc độ gió' WHERE slug = 'quat-dieu-hoa-kangaroo';
+UPDATE products SET specifications = 'Công suất: 8W\nSố mức sáng: 5 mức\nCổng sạc: USB-C' WHERE slug = 'den-ban-led-philips';
+UPDATE products SET specifications = 'Công suất hút: 120AW\nDung tích: 0.6L\nPin: 45 phút' WHERE slug = 'may-hut-bui-deerma';
+UPDATE products SET specifications = 'Dung tích: 5.5L\nCông suất: 1400W\nChế độ nấu: 8 chế độ có sẵn' WHERE slug = 'noi-chien-khong-dau-locklock';
+UPDATE products SET specifications = 'Công suất: 600W\nDung tích cối: 1.5L\nSố tốc độ: 2 tốc độ' WHERE slug = 'may-xay-sinh-to-philips';
+
+-- ===== Hàng cũ =====
+UPDATE products SET specifications = 'Chip: A15 Bionic\nRAM: 4GB\nBộ nhớ: 128GB\nTình trạng: 95% pin, không trầy xước' WHERE slug = 'iphone-13-cu';
+UPDATE products SET specifications = 'Chip: A14 Bionic\nRAM: 6GB\nBộ nhớ: 128GB\nTình trạng: 90% pin, có trầy nhẹ' WHERE slug = 'iphone-12-pro-cu';
+UPDATE products SET specifications = 'Chip: Exynos 2200\nRAM: 8GB\nBộ nhớ: 256GB\nTình trạng: 92% pin, đẹp 99%' WHERE slug = 'samsung-galaxy-s22-cu';
+UPDATE products SET specifications = 'Chip: Apple M1\nRAM: 8GB\nỔ cứng: 256GB SSD\nTình trạng: 98% pin, như mới' WHERE slug = 'macbook-air-m1-cu';
+UPDATE products SET specifications = 'Chip: Apple M2\nRAM: 8GB\nBộ nhớ: 128GB\nTình trạng: 97% pin, đẹp 99%' WHERE slug = 'ipad-pro-11-cu';
+UPDATE products SET specifications = 'Vi xử lý: S7 SiP\nMàn hình: 45mm LTPO OLED\nTình trạng: Pin còn tốt, dây đeo mới' WHERE slug = 'apple-watch-series-7-cu';
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) NOT NULL UNIQUE,
@@ -264,13 +371,7 @@ CREATE TABLE admins (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL
 );
-DROP TABLE IF EXISTS admins;
-CREATE TABLE admins (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) NOT NULL
-);
+
 INSERT INTO admins (username, password, email) 
 VALUES ('admin3','$2y$10$.4Hx3g5okuKHiSfpDvSygu9yszY3wnJ5cHLa.GtevsAk0DPtL4Rf.', 'admin@example.com');
 
