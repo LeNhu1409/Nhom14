@@ -6,12 +6,12 @@ if ($conn->connect_error) {
 }
 $conn->set_charset("utf8mb4");
 
-// Lấy danh mục từ URL
+// LẤY DANH MỤC TỪ URL
 $category_slug = isset($_GET['category']) ? $_GET['category'] : '';
 $category_name = '';
 $products = [];
 
-// Kiểm tra danh mục hợp lệ
+// KIỂM TRA DANH MỤC HỢP LẸ
 if ($category_slug) {
     $sql_category = "SELECT id, name FROM categories WHERE slug = ?";
     $stmt_category = $conn->prepare($sql_category);
@@ -592,7 +592,7 @@ if ($category_slug) {
         </div>
     </div>
 
-    <!-- Toast thông báo -->
+    <!-- Toast THONG BÁO-->
     <div id="toast" class="toast"></div>
 
     <script>
@@ -604,7 +604,7 @@ if ($category_slug) {
             const total = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
             cartItemsCount.textContent = total;
 
-            console.log('Cart:', cart); // Debug
+            console.log('Cart:', cart); //DEBUG
 
             if (Object.keys(cart).length === 0) {
                 cartItemsList.innerHTML = '<p class="cart-empty">Giỏ hàng trống</p>';
