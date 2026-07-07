@@ -59,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng ký Quản trị</title>
   <style>
-    /* Nền ảnh động cho toàn trang */
 body {
   margin: 0;
   padding: 0;
