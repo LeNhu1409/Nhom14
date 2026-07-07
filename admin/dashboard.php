@@ -239,7 +239,7 @@ $result = $conn->query($sql); // Lưu kết quả truy vấn vào biến $result
     </div>
   </header>
 
-  <!-- ✅ Bảng điều khiển -->
+  <!--  Bảng điều khiển -->
   <section id="dashboard" class="dashboard stats">
     <div class="stat">
       <h3>Khách truy cập</h3>
@@ -255,7 +255,7 @@ $result = $conn->query($sql); // Lưu kết quả truy vấn vào biến $result
     </div>
   </section>
 
-  <!-- ✅ Quản lý sản phẩm -->
+  <!-- Quản lý sản phẩm -->
   <section id="products" class="content-section">
     <h2>Quản lý Sản Phẩm</h2>
     <button class="add-product">Thêm sản phẩm mới</button>
