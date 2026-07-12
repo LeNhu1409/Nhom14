@@ -1,0 +1,44 @@
+name: Build and Deploy Nhom14 Web
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nhom14-web:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/nhom14-web:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            DB_HOST=$(aws ssm get-parameter --name "/nhom14/db_host" --query "Parameter.Value" --output text --region ap-southeast-1)
+            DB_USER=$(aws ssm get-parameter --name "/nhom14/db_user" --with-decryption --query "Parameter.Value" --output text --region ap-southeast-1)
+            DB_PASS=$(aws ssm get-parameter --name "/nhom14/db_pass" --with-decryption --query "Parameter.Value" --output text --region ap-southeast-1)
+            docker pull knhuw/nhom14-web:latest
+            docker stop nhom14-web || true
+            docker rm nhom14-web || true
+            docker run -d -p 80:80 \
+              -e DB_HOST=$DB_HOST -e DB_USER=$DB_USER -e DB_PASS=$DB_PASS \
+              --name nhom14-web knhuw/nhom14-web:latest
