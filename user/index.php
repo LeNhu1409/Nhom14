@@ -1075,7 +1075,7 @@ body {
         <img src="/img_sp/apple.png" alt="Apple" class="apple-logo">
     </div>
     <div class="center">
-        <h1 class="promo-title">DÙNG TRƯỚC TRẢ SAU</h1>
+        <h1 class="promo-title">DÙNG TRƯỚC - TRẢ SAU</h1>
         <div class="search-box" style="position:relative;">
             <input type="text" id="search-input" placeholder="Tìm iPhone, iPad, Mac...">
             <button><i class="fa fa-search"></i></button>
