@@ -64,7 +64,7 @@ if (!$product) { header("Location: /"); exit; }
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        /* ===== ẢNH ===== */
+        
         .product-image-section { display: flex; flex-direction: column; gap: 12px; }
         .main-img-wrap {
             background: #f8f8f8; border-radius: 10px; padding: 20px;
@@ -98,7 +98,7 @@ if (!$product) { header("Location: /"); exit; }
         .info-table td:first-child { color: #888; width: 40%; }
         .info-table td:last-child { font-weight: 600; color: #222; }
 
-        /* ===== SỐ LƯỢNG ===== */
+        
         .quantity-label { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px; }
         .quantity-control {
             display: flex; align-items: center; gap: 0;
@@ -125,7 +125,7 @@ if (!$product) { header("Location: /"); exit; }
             margin: 0;
         }
 
-        /* ===== NÚT ===== */
+        /* NÚT */
         .btn-group { display: flex; gap: 12px; }
         .btn-cart {
             flex: 1; padding: 14px; background: #e60000; color: white;
@@ -142,7 +142,7 @@ if (!$product) { header("Location: /"); exit; }
         }
         .btn-buy:hover { background: #e55a00; transform: translateY(-2px); }
 
-        /* ===== TOAST ===== */
+        
         .toast {
             display: none; position: fixed; bottom: 30px; right: 30px;
             background: #4CAF50; color: white; padding: 14px 24px;
@@ -155,7 +155,7 @@ if (!$product) { header("Location: /"); exit; }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== MÔ TẢ CHI TIẾT ===== */
+        /*  MÔ TẢ CHI TIẾT  */
         .desc-section {
             background: white; border-radius: 12px; padding: 30px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: 24px;
@@ -189,14 +189,14 @@ if (!$product) { header("Location: /"); exit; }
 <div class="container">
     <div class="product-layout">
 
-        <!-- ẢNH -->
+        
         <div class="product-image-section">
             <div class="main-img-wrap">
                 <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" id="main-img">
             </div>
         </div>
 
-        <!-- THÔNG TIN -->
+        
         <div class="product-info-section">
             <span class="category-tag"><?php echo htmlspecialchars($product['category_name']); ?></span>
             <h1 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h1>
